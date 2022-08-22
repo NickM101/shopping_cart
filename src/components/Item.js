@@ -1,6 +1,10 @@
-import './item.css'
+import "./item.css"
 
-function Item({id, title, image, price}) {
+import { useDispatch } from "react-redux"
+import { addToCart } from "../redux/cartSlice"
+
+function Item({ id, title, image, price }) {
+  const dispatch = useDispatch()
 
   return (
     <div className="item">
@@ -11,11 +15,21 @@ function Item({id, title, image, price}) {
           <strong>{price}</strong>
         </p>
       </div>
-      <img
-        src={image}
-        alt="item"
-      />
-      <button>Add to Cart</button>
+      <img src={image} alt="item" />
+      <button
+        onClick={() =>
+          dispatch(
+            addToCart({
+              id,
+              title,
+              image,
+              price
+            })
+          )
+        }
+      >
+        Add to Cart
+      </button>
     </div>
   )
 }
